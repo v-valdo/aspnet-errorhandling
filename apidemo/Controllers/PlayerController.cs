@@ -7,11 +7,9 @@ namespace apidemo.Controllers;
 public class PlayerController : ControllerBase
 {
     private readonly IPlayerRepository _playerRepository;
-    private readonly ILogger<PlayerController> _logger;
-    public PlayerController(IPlayerRepository playerRepository, ILogger<PlayerController> logger)
+    public PlayerController(IPlayerRepository playerRepository)
     {
         _playerRepository = playerRepository;
-        _logger = logger;
     }
 
     // throw error demonstration
@@ -25,16 +23,13 @@ public class PlayerController : ControllerBase
     [HttpGet("all")]
     public async Task<IActionResult> GetAll()
     {
-        try
+        var players = await _playerRepository.GetAllPlayersAsync();
+        if (players != null || players.Any())
         {
-            var players = await _playerRepository.GetAllPlayersAsync();
-            return Ok(players);
+            return NotFound("No players found");
         }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            return StatusCode(500, "Woops, we have failed you...");
-        }
+        return Ok(players);
+
     }
 
     // GET api/players/id
