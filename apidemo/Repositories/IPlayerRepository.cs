@@ -7,7 +7,6 @@ public interface IPlayerRepository
     Task<Player?> GetPlayerByIdAsync(int id);
     Task AddPlayerAsync(Player player);
     Task UpdatePlayerAsync(Player player);
-    Task DeletePlayerAsync(int id);
-
+    Task<bool> DeletePlayerAsync(int id);
     Task<Player> GetPlayerByUsernameAsync(string username);
 }

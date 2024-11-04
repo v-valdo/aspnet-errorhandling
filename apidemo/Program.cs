@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddLogging();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<apidemoContext>(options =>

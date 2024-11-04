@@ -67,7 +67,6 @@ public class PlayerController : ControllerBase
         {
             return BadRequest("Input doesn't match required fields");
         }
-
         // check for duplicate user
         var dupCheck = await _playerRepository.GetPlayerByUsernameAsync(player.Username);
         if (dupCheck != null)
@@ -78,4 +77,16 @@ public class PlayerController : ControllerBase
         await _playerRepository.AddPlayerAsync(player);
         return CreatedAtAction(nameof(GetPlayerById), new { id = player.Id }, player);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeletePlayer(int id)
+    {
+        bool successfulDeletion = await _playerRepository.DeletePlayerAsync(id);
+        if (successfulDeletion)
+        {
+            return NoContent();
+        }
+        return NotFound($"Player with ID {id} was not found");
+    }
+
 }
