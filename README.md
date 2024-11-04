@@ -1,6 +1,6 @@
 _educational demo_
 
-# REST API Error Handling Demo in ASP NET
+# REST API Error Handling Demo with caching in ASP NET
 ## proj layout
 - Controllers (endpoints and responses)
 - IRepositories (data access)
