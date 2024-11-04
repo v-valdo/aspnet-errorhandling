@@ -1,5 +1,6 @@
 using apidemo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace apidemo.Controllers;
 [ApiController]
@@ -7,7 +8,7 @@ namespace apidemo.Controllers;
 public class PlayerController : ControllerBase
 {
     private readonly IPlayerRepository _playerRepository;
-    public PlayerController(IPlayerRepository playerRepository)
+    public PlayerController(IPlayerRepository playerRepository, IMemoryCache memoryCache)
     {
         _playerRepository = playerRepository;
     }
@@ -24,12 +25,11 @@ public class PlayerController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var players = await _playerRepository.GetAllPlayersAsync();
-        if (players != null || players.Any())
+        if (players == null || !players.Any())
         {
             return NotFound("No players found");
         }
         return Ok(players);
-
     }
 
     // GET api/players/id
