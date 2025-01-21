@@ -3,7 +3,7 @@ _educational demo_
 # REST API Error Handling Demo with caching in ASP NET
 ## proj layout
 - Controllers (endpoints and responses)
-- IRepositories (data access)
+- Repositories (data access)
 - Data (EF, sqlite)
 - Middleware (Custom ErrorHandlingMiddleware)
 
